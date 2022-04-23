@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab4CSharp"
+        xmlns:views="clr-namespace:Lab4CSharp.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="400" Width="800" MinHeight="300" MinWidth="600">
     <Grid>
-
+        <views:UserTableView></views:UserTableView>
     </Grid>
 </Window>
