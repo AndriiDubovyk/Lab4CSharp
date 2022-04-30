@@ -3,20 +3,24 @@ using Lab4CSharp.Tools;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace Lab4CSharp.ViewModels
 {
-    class UserTableViewModel
+    class UserTableViewModel : INotifyPropertyChanged
     {
         #region Fields
         private ObservableCollection<User> _users;
         private User _selectedUser;
         private UserCandidate _userAdd = new UserCandidate();
+        private UserCandidate _userEdit = new UserCandidate();
         private RelayCommand<object> _addCommand;
+        private RelayCommand<object> _editCommand;
         private RelayCommand<object> _removeCommand;
         #endregion
 
@@ -42,6 +46,13 @@ namespace Lab4CSharp.ViewModels
             set
             {
                 _selectedUser = value;
+                if(value!=null)
+                {
+                    FirstNameEdit = value.FirstName;
+                    LastNameEdit = value.LastName;
+                    EmailEdit = value.Email;
+                    BirthdateEdit = value.Birthdate;
+                }
             }
 
         }
@@ -94,11 +105,63 @@ namespace Lab4CSharp.ViewModels
             }
         }
 
-        public RelayCommand<object> RemoveCommand
+        public string FirstNameEdit
         {
             get
             {
-                return _removeCommand ??= new RelayCommand<object>(_ => Remove(), CanExecuteRemoveCommand);
+                return _userEdit.FirstName;
+            }
+            set
+            {
+                _userEdit.FirstName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string LastNameEdit
+        {
+            get
+            {
+                return _userEdit.LastName;
+            }
+            set
+            {
+                _userEdit.LastName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string EmailEdit
+        {
+            get
+            {
+                return _userEdit.Email;
+            }
+            set
+            {
+                _userEdit.Email = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public DateTime? BirthdateEdit
+        {
+            get
+            {
+                return _userEdit.Birthdate;
+            }
+            set
+            {
+                _userEdit.Birthdate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public RelayCommand<object> EditCommand
+        {
+            get
+            {
+                return _editCommand ??= new RelayCommand<object>(_ => Edit(), CanExecuteEditCommand);
             }
         }
 
@@ -106,7 +169,15 @@ namespace Lab4CSharp.ViewModels
         {
             get
             {
-                return _removeCommand ??= new RelayCommand<object>(_ => Add(), CanExecuteAddCommand);
+                return _addCommand ??= new RelayCommand<object>(_ => Add(), CanExecuteAddCommand);
+            }
+        }
+
+        public RelayCommand<object> RemoveCommand
+        {
+            get
+            {
+                return _removeCommand ??= new RelayCommand<object>(_ => Remove(), CanExecuteRemoveCommand);
             }
         }
         #endregion
@@ -134,14 +205,9 @@ namespace Lab4CSharp.ViewModels
             Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
         }
 
-        private void Remove()
-        {
-            Users.Remove(SelectedUser);
-        }
-
         private void Add()
         {
-           try
+            try
             {
                 Users.Add(new User(FirstNameAdd, LastNameAdd, EmailAdd, BirthdateAdd.Value));
             }
@@ -151,9 +217,26 @@ namespace Lab4CSharp.ViewModels
             }
         }
 
-        private bool CanExecuteRemoveCommand(object obj)
+        private void Edit()
         {
-            return SelectedUser!=null;
+            try
+            {
+                Users.Add(new User(FirstNameEdit, LastNameEdit, EmailEdit, BirthdateEdit.Value));
+                Users.Remove(SelectedUser);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Process failed: {ex.Message}");
+            }
+        }
+
+        private void Remove()
+        {
+            Users.Remove(SelectedUser);
+            FirstNameEdit = "";
+            LastNameEdit = "";
+            EmailEdit = "";
+            BirthdateEdit = null;
         }
 
         private bool CanExecuteAddCommand(object obj)
@@ -162,6 +245,27 @@ namespace Lab4CSharp.ViewModels
                 && !String.IsNullOrWhiteSpace(LastNameAdd)
                 && !String.IsNullOrWhiteSpace(EmailAdd)
                 && BirthdateAdd != null;
+        }
+
+        private bool CanExecuteEditCommand(object obj)
+        {
+            return !String.IsNullOrWhiteSpace(FirstNameEdit)
+                && !String.IsNullOrWhiteSpace(LastNameEdit)
+                && !String.IsNullOrWhiteSpace(EmailEdit)
+                && BirthdateEdit != null
+                && SelectedUser != null;
+        }
+
+        private bool CanExecuteRemoveCommand(object obj)
+        {
+            return SelectedUser!=null;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
     }

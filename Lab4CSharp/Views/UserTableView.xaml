@@ -38,7 +38,7 @@
                 <DataGridCheckBoxColumn Header="Is Adult" Binding="{Binding IsAdult, Mode=OneWay}" />
                 <DataGridTextColumn Header="Sun Sign" Binding="{Binding SunSign, Mode=OneWay}" />
                 <DataGridTextColumn Header="Chinese Sign" Binding="{Binding ChineseSign, Mode=OneWay}" />
-                <DataGridCheckBoxColumn Header="Is Birthdate" Binding="{Binding IsBirthdate, Mode=OneWay}" />
+                <DataGridCheckBoxColumn Header="Is Birthday" Binding="{Binding IsBirthday, Mode=OneWay}" />
             </DataGrid.Columns>
         </DataGrid>
 
@@ -53,13 +53,13 @@
         <Button Name="ButtonAdd" Grid.Row="8" Grid.Column="5" VerticalAlignment="Center" Height="20" Width="100" Margin="5" Content="Add" Command ="{Binding AddCommand}"></Button>
 
         <TextBlock Grid.Row="9" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,5,5,2" Text="First Name" FontSize="12" Foreground="Gray"/>
-        <TextBox Name="TbFirstNameEdit" Grid.Row="10" Grid.Column="0" Height="20" Margin="5,0,5,5" Text="{Binding FirstNameEdit, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+        <TextBox Name="TbFirstNameEdit" Grid.Row="10" Grid.Column="0" Height="20" Margin="5,0,5,5" Text="{Binding FirstNameEdit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
         <TextBlock Grid.Row="9" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,5,5,2" Text="Last Name" FontSize="12" Foreground="Gray"/>
-        <TextBox Name="TbLastNameEdit" Grid.Row="10" Grid.Column="1" Height="20" Margin="5,0,5,5" Text="{Binding LastNameEdit, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+        <TextBox Name="TbLastNameEdit" Grid.Row="10" Grid.Column="1" Height="20" Margin="5,0,5,5" Text="{Binding LastNameEdit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
         <TextBlock Grid.Row="9" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,5,5,2" Text="Email" FontSize="12" Foreground="Gray"/>
-        <TextBox Name="TbEmailEdit" Grid.Row="10" Grid.Column="2" Height="20" Margin="5,0,5,5" Text="{Binding EmailEdit, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Name="TbEmailEdit" Grid.Row="10" Grid.Column="2" Height="20" Margin="5,0,5,5" Text="{Binding EmailEdit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <TextBlock Grid.Row="9" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,5,5,2" Text="Birthdate" FontSize="12" Foreground="Gray"></TextBlock>
-        <DatePicker Name="BirthdatePickerEdit" Grid.Row="10"  Grid.Column="3" VerticalAlignment="Center" Height="20" Margin="5" FontSize="11" SelectedDate="{Binding BirthdateAdd, Mode=OneWayToSource}"></DatePicker>
+        <DatePicker Name="BirthdatePickerEdit" Grid.Row="10"  Grid.Column="3" VerticalAlignment="Center" Height="20" Margin="5" FontSize="11" SelectedDate="{Binding BirthdateEdit, Mode=TwoWay}"></DatePicker>
         <Button Name="ButtonEdit" Grid.Row="10" Grid.Column="5"  VerticalAlignment="Center" Height="20" Width="100" Margin="5" Content="Edit" Command ="{Binding EditCommand}"></Button>
         
         <Button Name="ButtonRemove" Grid.Row="11" Grid.Column="5" VerticalAlignment="Center" Height="20" Width="100" Margin="5" Content="Remove" Command ="{Binding RemoveCommand}"></Button>

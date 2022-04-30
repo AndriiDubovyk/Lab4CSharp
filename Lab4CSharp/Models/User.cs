@@ -24,31 +24,9 @@ namespace Lab4CSharp.Models
             Validate();
         }
 
-        public User(string firstName, string lastName, string email)
-        {
-            FirstName = firstName;
-            LastName = lastName;
-            Email = email;
-            Birthdate = DateTime.Today;
-            IsAdult = (GetAge() >= 18);
-            SunSign = GetSunSign();
-            ChineseSign = GetChineseSign();
-            IsBirthday = (DateTime.Today.Month == Birthdate.Month && DateTime.Today.Day == Birthdate.Day);
-            Validate();
-        }
+        public User(string firstName, string lastName, string email) : this(firstName, lastName, email, DateTime.Today) { }
 
-        public User(string firstName, string lastName, DateTime bitrhdate)
-        {
-            FirstName = firstName;
-            LastName = lastName;
-            Email = "";
-            Birthdate = DateTime.Today;
-            IsAdult = (GetAge() >= 18);
-            SunSign = GetSunSign();
-            ChineseSign = GetChineseSign();
-            IsBirthday = (DateTime.Today.Month == Birthdate.Month && DateTime.Today.Day == Birthdate.Day);
-            Validate();
-        }
+        public User(string firstName, string lastName, DateTime bitrhdate) : this(firstName, lastName, "", bitrhdate) { }
         #endregion
 
 
@@ -56,7 +34,7 @@ namespace Lab4CSharp.Models
         public string FirstName { get; }
         public string LastName { get; }
         public string Email { get; }
-        public DateTime Birthdate { get; }
+        public DateTime Birthdate { get;}
         public bool IsAdult { get; }
         public string SunSign { get; }
         public string ChineseSign { get; }
