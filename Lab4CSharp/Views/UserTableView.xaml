@@ -34,7 +34,7 @@
                 <DataGridTextColumn Header="First Name"  Binding="{Binding FirstName, Mode=OneWay}"/>
                 <DataGridTextColumn Header="Last Name" Binding="{Binding LastName, Mode=OneWay}" />
                 <DataGridTextColumn Header="Email" Binding="{Binding Email, Mode=OneWay}" />
-                <DataGridTextColumn Header="Birthdate" Binding="{Binding Birthdate, Mode=OneWay}" />
+                <DataGridTextColumn Header="Birthdate" Binding="{Binding Birthdate, Mode=OneWay, StringFormat=\{0:dd.MM.yyyy\}}" />
                 <DataGridCheckBoxColumn Header="Is Adult" Binding="{Binding IsAdult, Mode=OneWay}" />
                 <DataGridTextColumn Header="Sun Sign" Binding="{Binding SunSign, Mode=OneWay}" />
                 <DataGridTextColumn Header="Chinese Sign" Binding="{Binding ChineseSign, Mode=OneWay}" />
