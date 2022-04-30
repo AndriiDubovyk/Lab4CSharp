@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Lab4CSharp.ViewModels;
 
 namespace Lab4CSharp.Views
 {
@@ -23,6 +24,7 @@ namespace Lab4CSharp.Views
         public UserTableView()
         {
             InitializeComponent();
+            DataContext = new UserTableViewModel();
         }
     }
 }
