@@ -20,7 +20,7 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <DataGrid Name="DG1" ItemsSource="{Binding Users, Mode=OneWay}" AutoGenerateColumns="False" Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="4">
+        <DataGrid Name="DG1" ItemsSource="{Binding Users, Mode=OneWay}" SelectedItem="{Binding SelectedUser}" AutoGenerateColumns="False" Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="4">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="First Name"  Binding="{Binding FirstName, Mode=OneWay}"/>
                 <DataGridTextColumn Header="Last Name" Binding="{Binding LastName, Mode=OneWay}" />
