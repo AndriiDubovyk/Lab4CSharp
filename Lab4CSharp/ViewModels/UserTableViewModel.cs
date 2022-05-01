@@ -187,26 +187,8 @@ namespace Lab4CSharp.ViewModels
 
         public UserTableViewModel()
         {
-            //this.Users = new ObservableCollection<User>();
-            //Users.Add(new User("Andrii", "Dubovyk", "example@gmail.com", new DateTime(2003, 08, 01)));
-            //Users.Add(new User("John", "Smith", "jsmith@gmail.com", new DateTime(2000, 04, 30)));
-            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
             _users = new ObservableCollection<User>(new UserService().GetAllUsers());
+            if (_users.Count == 0) FillTable();
         }
 
         private void Add()
@@ -305,6 +287,60 @@ namespace Lab4CSharp.ViewModels
                 if (user.Email == email) return false;
             }
             return true;
+        }
+
+        private void FillTable()
+        {
+            AddUser(new User("Jack", "Nicklson", "jnicklson@gmail.com", new DateTime(1990, 5, 3)));
+            AddUser(new User("John", "Nicklson", "johnnicklson@gmail.com", new DateTime(1995, 5, 4)));
+            AddUser(new User("Nick", "Johnson", "njohnson@gmail.com", new DateTime(2008, 5, 6)));
+            AddUser(new User("Kate", "Simpson", "ksimpson@gmail.com", new DateTime(1999, 12, 12)));
+            AddUser(new User("Samuel", "Nicklson", "snicklson@gmail.com", new DateTime(1995, 5, 4)));
+            AddUser(new User("Ben", "Barkley", "bbarkley@gmail.com", new DateTime(1958, 1, 4)));
+            AddUser(new User("Dan", "Barkley", "dbarkley@gmail.com", new DateTime(1966, 12, 4)));
+            AddUser(new User("Ben", "Simpson", "bsimpson@gmail.com", new DateTime(2001, 1, 1)));
+            AddUser(new User("Ron", "Smith", "smithron@gmail.com", new DateTime(1970, 7, 7)));
+            AddUser(new User("Andrew", "Adley", "aadley@gmail.com", new DateTime(1965, 5, 4)));
+            AddUser(new User("James", "Baker", "bakerjames@gmail.com", new DateTime(2007, 5, 4)));
+            AddUser(new User("Robert", "Baker", "bakerobert2000@gmail.com", new DateTime(2000, 2, 4)));
+            AddUser(new User("Mary", "Baker", "mbaker@gmail.com", new DateTime(1980, 9, 4)));
+            AddUser(new User("Jennifer", "Baker", "jenbaker@gmail.com", new DateTime(1982, 11, 4)));
+            AddUser(new User("William", "Cooper", "wcooper@gmail.com", new DateTime(1995, 5, 24)));
+            AddUser(new User("Thomas", "Cooper", "tcooper@gmail.com", new DateTime(1993, 12, 22)));
+            AddUser(new User("Elizabeth", "Cooper", "ecooper@gmail.com", new DateTime(1990, 5, 10)));
+            AddUser(new User("Mary", "Anderson ", "manderson@gmail.com", new DateTime(2002, 5, 12)));
+            AddUser(new User("Emily", "Anderson", "andersonemily1999@gmail.com", new DateTime(1999, 5, 11)));
+            AddUser(new User("Anthony", "Anderson", "anderson@gmail.com", new DateTime(2000, 5, 15)));
+            AddUser(new User("Kevin", "Davidson", "kdavidson@gmail.com", new DateTime(2002, 7, 14)));
+            AddUser(new User("John", "Davidson", "jdavidson@gmail.com", new DateTime(2003, 2, 4)));
+            AddUser(new User("James", "Davidson", "jamesdavidson@gmail.com", new DateTime(2000, 1, 4)));
+            AddUser(new User("Thomas", "Davidson", "tdavidson@gmail.com", new DateTime(1995, 2, 22)));
+            AddUser(new User("Elizabeth", "Davidson", "edavidson@gmail.com", new DateTime(1987, 3, 19)));
+            AddUser(new User("William", "Davidson", "wdavidson@gmail.com", new DateTime(1992, 4, 16)));
+            AddUser(new User("Rob", "Robinson ", "robrobinson@gmail.com", new DateTime(1993, 12, 4)));
+            AddUser(new User("John", "Robinson", "jrobinson@gmail.com", new DateTime(1994, 1, 14)));
+            AddUser(new User("Kate", "Robinson", "robinsonkate@gmail.com", new DateTime(1998, 2, 13)));
+            AddUser(new User("Nick", "Robinson", "nrobinson@gmail.com", new DateTime(1999, 5, 7)));
+            AddUser(new User("Edward", "Evans ", "edwardevans@gmail.com", new DateTime(1985, 5, 4)));
+            AddUser(new User("Nick", "Evans", "nickevans@gmail.com", new DateTime(1975, 6, 2)));
+            AddUser(new User("Ryan", "Mitchell", "rmitchell@gmail.com", new DateTime(1955, 5, 17)));
+            AddUser(new User("Jeffrey", "Mitchell", "jmitchell@gmail.com", new DateTime(1982, 9, 4)));
+            AddUser(new User("Gary", "Mitchell", "mitchell@gmail.com", new DateTime(1980, 11, 4)));
+            AddUser(new User("Eric", "Tailor ", "etailor@gmail.com", new DateTime(1975, 12, 4)));
+            AddUser(new User("Gary", "Tailor", "garytailor@gmail.com", new DateTime(1999, 5, 19)));
+            AddUser(new User("Betty", "Tailor", "tailorbetty@gmail.com", new DateTime(1999, 5, 26)));
+            AddUser(new User("Scott", "Mason ", "smason@gmail.com", new DateTime(1997, 5, 27)));
+            AddUser(new User("Eric", "Mason", "ericmason@gmail.com", new DateTime(1991, 5, 12)));
+            AddUser(new User("John", "Mason", "jmason@gmail.com", new DateTime(1992, 5, 10)));
+            AddUser(new User("Jack", "Mason", "masonjack@gmail.com", new DateTime(1993, 5, 20)));
+            AddUser(new User("Nicole", "Mason", "nmason@gmail.com", new DateTime(1994, 5, 25)));
+            AddUser(new User("Olivia", "Mason", "omason@gmail.com", new DateTime(1977, 5, 23)));
+            AddUser(new User("Tyler", "Brown", "tbrown@gmail.com", new DateTime(1978, 5, 21)));
+            AddUser(new User("Jerry", "Brown", "brownjerry@gmail.com", new DateTime(1979, 5, 22)));
+            AddUser(new User("Walter", "Brown", "wbrown@gmail.com", new DateTime(1989, 10, 2)));
+            AddUser(new User("Arthur", "Brown", "abrown@gmail.com", new DateTime(1988, 4, 5)));
+            AddUser(new User("Larry", "Brown", "lbrown@gmail.com", new DateTime(1991, 3, 11)));
+            AddUser(new User("Justin", "Brown", "jbrown@gmail.com", new DateTime(1976, 2, 12)));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
