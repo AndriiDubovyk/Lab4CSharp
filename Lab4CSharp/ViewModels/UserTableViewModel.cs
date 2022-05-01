@@ -1,4 +1,6 @@
 ﻿using Lab4CSharp.Models;
+using Lab4CSharp.Repositories;
+using Lab4CSharp.Services;
 using Lab4CSharp.Tools;
 using System;
 using System.Collections.Generic;
@@ -22,6 +24,7 @@ namespace Lab4CSharp.ViewModels
         private RelayCommand<object> _addCommand;
         private RelayCommand<object> _editCommand;
         private RelayCommand<object> _removeCommand;
+        private static FileRepository Repository = new FileRepository();
         #endregion
 
         #region Properties
@@ -184,32 +187,42 @@ namespace Lab4CSharp.ViewModels
 
         public UserTableViewModel()
         {
-            this.Users = new ObservableCollection<User>();
-            Users.Add(new User("Andrii", "Dubovyk", "example@gmail.com", new DateTime(2003, 08, 01)));
-            Users.Add(new User("John", "Smith", "jsmith@gmail.com", new DateTime(2000, 04, 30)));
-            Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
-            Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
+            //this.Users = new ObservableCollection<User>();
+            //Users.Add(new User("Andrii", "Dubovyk", "example@gmail.com", new DateTime(2003, 08, 01)));
+            //Users.Add(new User("John", "Smith", "jsmith@gmail.com", new DateTime(2000, 04, 30)));
+            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
+            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
+            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
+            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
+            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
+            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
+            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
+            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
+            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
+            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
+            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
+            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
+            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
+            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
+            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
+            //Users.Add(new User("Jack", "Nicklson", "nicklson@gmail.com", new DateTime(2010, 05, 15)));
+            _users = new ObservableCollection<User>(new UserService().GetAllUsers());
         }
 
         private void Add()
         {
             try
             {
-                Users.Add(new User(FirstNameAdd, LastNameAdd, EmailAdd, BirthdateAdd.Value));
+                if (IsUniqueEmail(EmailAdd))
+                {
+                    User user = new User(FirstNameAdd, LastNameAdd, EmailAdd, BirthdateAdd.Value);
+                    AddUser(user);
+                }
+                else
+                {
+                    MessageBox.Show("User email must be unique");
+                }
+
             }
             catch (Exception ex)
             {
@@ -221,8 +234,15 @@ namespace Lab4CSharp.ViewModels
         {
             try
             {
-                Users.Add(new User(FirstNameEdit, LastNameEdit, EmailEdit, BirthdateEdit.Value));
-                Users.Remove(SelectedUser);
+                if (EmailEdit == SelectedUser.Email || IsUniqueEmail(EmailEdit))
+                {
+                    User user = new User(FirstNameEdit, LastNameEdit, EmailEdit, BirthdateEdit.Value);
+                    AddUser(user);
+                    RemoveUser(SelectedUser);
+                } else
+                {
+                    MessageBox.Show("User email must be unique");
+                }
             }
             catch (Exception ex)
             {
@@ -232,7 +252,7 @@ namespace Lab4CSharp.ViewModels
 
         private void Remove()
         {
-            Users.Remove(SelectedUser);
+            RemoveUser(SelectedUser);
             FirstNameEdit = "";
             LastNameEdit = "";
             EmailEdit = "";
@@ -259,6 +279,32 @@ namespace Lab4CSharp.ViewModels
         private bool CanExecuteRemoveCommand(object obj)
         {
             return SelectedUser!=null;
+        }
+
+        private async void AddUser(User user)
+        {
+            Users.Add(user);
+            UserCandidate uc = new UserCandidate();
+            uc.FirstName = user.FirstName;
+            uc.LastName = user.LastName;
+            uc.Email = user.Email;
+            uc.Birthdate = user.Birthdate;
+            await Repository.AddAsync(uc);
+        }
+
+        private void RemoveUser(User user)
+        {
+            Users.Remove(user);
+            Repository.Remove(user.Email);
+        }
+
+        private bool IsUniqueEmail(string email)
+        {
+            foreach(var user in Users)
+            {
+                if (user.Email == email) return false;
+            }
+            return true;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
